@@ -12,7 +12,11 @@ class OnBoardingCollectionViewCell: UICollectionViewCell {
 
     @IBAction func nextBtnLabel(_ sender: UIButton) {
         UserDefaults.standard.set(true, forKey: "onBoarding")
-        print("Next Button Clicked")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+        let rootViewController = UINavigationController(rootViewController: vc)
+        rootViewController.navigationBar.isHidden = true
+        self.window?.rootViewController = rootViewController
     }
     @IBOutlet weak var nextLabel: UIButton!
     @IBOutlet weak var image: UIImageView!

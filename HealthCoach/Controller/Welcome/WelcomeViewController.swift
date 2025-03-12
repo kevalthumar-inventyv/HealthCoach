@@ -9,21 +9,34 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
 
+    @IBAction func signupBtn(_ sender: UIButton) {
+
+        let privacyVC = storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicyViewController") as! PrivacyPolicyViewController
+        privacyVC.howItCome = "WithSignupMethod"
+        navigationController?.pushViewController(privacyVC, animated: true)
+    }
+    
+    @IBAction func continueBtn(_ sender: UIButton) {
+        
+        let privacyVC = storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicyViewController") as! PrivacyPolicyViewController
+        privacyVC.howItCome = "WithoutSignupMethod"
+        navigationController?.pushViewController(privacyVC, animated: true)
+    }
+    
+    @IBAction func loginBtn(_ sender: UIButton) {
+        
+        let loginVC = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

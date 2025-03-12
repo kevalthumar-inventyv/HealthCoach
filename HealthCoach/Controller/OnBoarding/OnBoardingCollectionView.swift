@@ -14,7 +14,7 @@ class OnBoardingCollectionView:  UIViewController , UICollectionViewDelegate, UI
     let items = [
           ("Applogo", "Welcome to the HeathCoach World!"),
           ("Onboarding3image", "Your health at a glance"),
-          ("Onboarding2image", "the healthCoach Cloud gives you access to your health data anywhere and at any time")
+          ("Onboarding2image", "The healthCoach Cloud gives you access to your health data anywhere and at any time")
         ]
     
     
@@ -47,9 +47,7 @@ class OnBoardingCollectionView:  UIViewController , UICollectionViewDelegate, UI
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let width = scrollView.frame.width
-        print("Width is \(width) and contentOffset is \(scrollView.contentOffset.x)")
         currentPage = Int(scrollView.contentOffset.x / (width - 20))
-        print("Current Page is \(currentPage)")
         pageView.currentPage = currentPage
     }
     
