@@ -8,22 +8,45 @@
 import UIKit
 
 class SBC53SettingViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    
+    @IBAction func backBtn(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func addDeviceBtn(_ sender: UIButton) {
+        let selectedUsers = users.enumerated().compactMap { selectedIndexes[$0.offset] == true ? $0.element : nil }
+        
+        if selectedUsers.isEmpty {
+            Utilities.showAlert(on: self, title: "Error!", message: "At least one user must be selected!")
+        } else {
+            print("Selected Users: \(selectedUsers.joined(separator: ", "))")
+            let HomeVC = self.storyboard?.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+                        self.navigationController?.pushViewController(HomeVC, animated: true)
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    let users = ["User 1", "User 2"]
+    var selectedIndexes: [Bool] = []  // ✅ Track selected users
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        selectedIndexes = Array(repeating: false, count: users.count)  // ✅ Initialize with all false
     }
-    */
 
+}
+
+extension SBC53SettingViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return users.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SBC53cell", for: indexPath) as! SBC53SettingTableViewCell
+        cell.onTapOut.setTitle(users[indexPath.row], for: .normal)
+        cell.isChecked = selectedIndexes[indexPath.row]
+        cell.checkboxTapped = { [weak self] in
+            self?.selectedIndexes[indexPath.row].toggle()
+        }
+        return cell
+    }
 }

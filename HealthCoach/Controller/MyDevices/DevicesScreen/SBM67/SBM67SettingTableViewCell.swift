@@ -1,5 +1,5 @@
 //
-//  SBF37SettingTableViewCell.swift
+//  SBM67SettingTableViewCell.swift
 //  HealthCoach
 //
 //  Created by Keval Thumar on 05/03/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SBF67SettingTableViewCell: UITableViewCell {
+class SBM67SettingTableViewCell: UITableViewCell {
     
     @IBOutlet weak var onTapOut: UIButton!
     

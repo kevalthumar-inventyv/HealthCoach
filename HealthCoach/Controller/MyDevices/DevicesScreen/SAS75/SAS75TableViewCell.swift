@@ -9,15 +9,31 @@ import UIKit
 
 class SAS75TableViewCell: UITableViewCell {
 
+    @IBOutlet weak var textField: ReadOnlyTextField!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var switchOut: UISwitch!
+    
+    @IBAction func switchBtn(_ sender: UISwitch) {
+        parentViewController?.isSwitchOn = sender.isOn
+    }
+    
+    var pickerType: PickerType?
+    weak var parentViewController: SAS75ViewController?
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        textField.addTarget(self, action: #selector(showPicker), for: .allTouchEvents)
+        textField.tintColor = .clear // Hides the cursor
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    @objc func showPicker() {
+        guard let type = pickerType, let parentVC = parentViewController else {
+            print("⚠️ PickerType or ParentViewController is nil")
+            return
+        }
+        
+        print("📌 Tapped on text field: \(label.text ?? "Unknown Field")") // 🔥 Debug print
 
-        // Configure the view for the selected state
+        parentVC.pickerManager.showPicker(for: type, in: parentVC)
     }
-
 }

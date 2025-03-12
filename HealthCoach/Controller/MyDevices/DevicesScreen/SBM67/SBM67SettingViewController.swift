@@ -1,5 +1,5 @@
 //
-//  SBF37SettingViewController.swift
+//  SBM37SettingViewController.swift
 //  HealthCoach
 //
 //  Created by Keval Thumar on 05/03/25.
@@ -7,8 +7,11 @@
 
 import UIKit
 
-class SBF67SettingViewController: UIViewController {
+class SBM67SettingViewController: UIViewController {
 
+    @IBAction func backBtn(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func addDeviceBtn(_ sender: UIButton) {
         let selectedUsers = users.enumerated().compactMap {
             selectedIndexes[$0.offset] == true ? $0.element : nil
@@ -20,6 +23,8 @@ class SBF67SettingViewController: UIViewController {
                 message: "At least one user must be selected!")
         } else {
             print("Selected Users: \(selectedUsers.joined(separator: ", "))")
+            let HomeVC = self.storyboard?.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+            self.navigationController?.pushViewController(HomeVC, animated: true)
         }
     }
 
@@ -33,7 +38,7 @@ class SBF67SettingViewController: UIViewController {
 
 }
 
-extension SBF67SettingViewController: UITableViewDelegate, UITableViewDataSource
+extension SBM67SettingViewController: UITableViewDelegate, UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int
@@ -46,8 +51,8 @@ extension SBF67SettingViewController: UITableViewDelegate, UITableViewDataSource
     {
         let cell =
             tableView.dequeueReusableCell(
-                withIdentifier: "SBF67cell", for: indexPath)
-            as! SBF67SettingTableViewCell
+                withIdentifier: "SBM67cell", for: indexPath)
+            as! SBM67SettingTableViewCell
         cell.onTapOut.setTitle(users[indexPath.row], for: .normal)
         cell.isChecked = selectedIndexes[indexPath.row]
         cell.checkboxTapped = { [weak self] in

@@ -9,6 +9,10 @@ import UIKit
 
 class SBM37SettingViewController: UIViewController {
     
+    
+    @IBAction func backBtn(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func addDeviceBtn(_ sender: UIButton) {
         let selectedUsers = users.enumerated().compactMap { selectedIndexes[$0.offset] == true ? $0.element : nil }
         
@@ -16,6 +20,8 @@ class SBM37SettingViewController: UIViewController {
             Utilities.showAlert(on: self, title: "Error!", message: "At least one user must be selected!")
         } else {
             print("Selected Users: \(selectedUsers.joined(separator: ", "))")
+            let HomeVC = self.storyboard?.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+            self.navigationController?.pushViewController(HomeVC, animated: true)
         }
     }
     
