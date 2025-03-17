@@ -17,14 +17,16 @@ class PrivacyPolicyViewController: UIViewController {
     
     
     @IBAction func agreeBtn(_ sender: UIButton) {
-      if howItCome == "WithSignupMethod"{
-          let emailVC = self.storyboard?.instantiateViewController(identifier: "EmailPasswordViewController") as! EmailPasswordViewController
-          self.navigationController?.pushViewController(emailVC, animated: true)
-        }
-        else if howItCome == "WithoutSignupMethod"{
-            let birthHeightGenderVC = self.storyboard?.instantiateViewController(identifier: "BirthHeightGenderViewController") as! BirthHeightGenderViewController
-            birthHeightGenderVC.howItCome = howItCome
-            self.navigationController?.pushViewController(birthHeightGenderVC, animated: true)
+        
+        let NextVC = Navigation.shared.makeConditionViewController(
+            firstIdentifier: "EmailPasswordViewController" ,
+            secondIdentifier: "BirthHeightGenderViewController",
+            from: self,
+            condition: howItCome == "WithSignupMethod"
+        )
+        
+        if let BirthdayHeightGenderVC = NextVC as? BirthHeightGenderViewController {
+            BirthdayHeightGenderVC.howItCome = howItCome
         }
     }
     

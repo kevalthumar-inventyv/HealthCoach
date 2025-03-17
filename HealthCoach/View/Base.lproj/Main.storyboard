@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cWb-X8-bBE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dEe-BT-5zN">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -2179,6 +2179,7 @@
                             <constraint firstItem="8mG-X5-asC" firstAttribute="top" secondItem="X2u-9I-hOn" secondAttribute="bottom" id="u6O-vl-Uee"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="nIZ-5U-s34"/>
                     <connections>
                         <outlet property="editBtn" destination="raH-PA-hme" id="Phr-lR-2Gy"/>
                         <outlet property="myTableView" destination="8mG-X5-asC" id="LxF-fh-Fhv"/>
@@ -2187,12 +2188,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="amS-5M-UqA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2929" y="-28"/>
+            <point key="canvasLocation" x="3847.7611940298507" y="-28.146453089244851"/>
         </scene>
-        <!--View Controller-->
+        <!--Medication View Controller-->
         <scene sceneID="u2e-l0-dwY">
             <objects>
-                <viewController id="ypk-Mn-Zmh" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MedicationViewController" id="ypk-Mn-Zmh" customClass="MedicationViewController" customModule="HealthCoach" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Ah-FX-LEV">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2219,6 +2220,7 @@
                                 <connections>
                                     <action selector="backBtn:" destination="2iU-LD-nZq" eventType="touchUpInside" id="bkM-Ws-C8R"/>
                                     <action selector="backBtn:" destination="gTK-MQ-XpU" eventType="touchUpInside" id="wY2-yf-G5D"/>
+                                    <action selector="btnSideMenu:" destination="ypk-Mn-Zmh" eventType="touchUpInside" id="CRB-dX-p4w"/>
                                     <action selector="edit:" destination="J44-xZ-Ndr" eventType="touchUpInside" id="6qY-UL-kEZ"/>
                                 </connections>
                             </button>
@@ -2236,6 +2238,9 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
                                             <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnAddMedication:" destination="ypk-Mn-Zmh" eventType="touchUpInside" id="uSu-XK-F8K"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.47937863190000002" green="0.62033856139999999" blue="0.74350907980000003" alpha="0.39497102649006621" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2250,25 +2255,104 @@
                                     <constraint firstAttribute="bottom" secondItem="K6t-F2-HSA" secondAttribute="bottom" constant="10" id="zEL-56-XKi"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdF-u5-hAo">
+                                <rect key="frame" x="0.0" y="62" width="250" height="778"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LF4-aZ-3Xc">
+                                        <rect key="frame" x="10" y="10" width="230" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="9Ci-QZ-hf4"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="house.fill" catalog="system" title="Home">
+                                            <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnHomeSide:" destination="ypk-Mn-Zmh" eventType="touchUpInside" id="b3j-4C-fKC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HSh-Dw-q3u">
+                                        <rect key="frame" x="10" y="110" width="230" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3dT-BQ-Tbh"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="rotate.3d.fill" catalog="system" title="More">
+                                            <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnMoreSide:" destination="ypk-Mn-Zmh" eventType="touchUpInside" id="duK-AS-Khm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zn1-Q5-wBa">
+                                        <rect key="frame" x="10" y="160" width="230" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="GK2-iX-02Y"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="gear" catalog="system" title="Settings">
+                                            <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnSettingsSide:" destination="ypk-Mn-Zmh" eventType="touchUpInside" id="jJh-KA-UBU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRi-OO-Lbd">
+                                        <rect key="frame" x="10" y="60" width="230" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="ENY-hp-7i8"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="cross.case.circle.fill" catalog="system" title="Medication">
+                                            <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="btnMedicationSide:" destination="ypk-Mn-Zmh" eventType="touchUpInside" id="YsD-fH-ij7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="sRi-OO-Lbd" secondAttribute="trailing" constant="10" id="3Yt-Ba-GbG"/>
+                                    <constraint firstItem="sRi-OO-Lbd" firstAttribute="leading" secondItem="kdF-u5-hAo" secondAttribute="leading" constant="10" id="F4W-k5-tf8"/>
+                                    <constraint firstItem="LF4-aZ-3Xc" firstAttribute="top" secondItem="kdF-u5-hAo" secondAttribute="top" constant="10" id="Irv-1Q-Dik"/>
+                                    <constraint firstItem="HSh-Dw-q3u" firstAttribute="leading" secondItem="kdF-u5-hAo" secondAttribute="leading" constant="10" id="Jat-5F-Vlb"/>
+                                    <constraint firstAttribute="trailing" secondItem="LF4-aZ-3Xc" secondAttribute="trailing" constant="10" id="OTe-wp-cJt"/>
+                                    <constraint firstAttribute="width" constant="250" id="Q5f-3h-KQZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="HSh-Dw-q3u" secondAttribute="trailing" constant="10" id="ZMc-yU-eE2"/>
+                                    <constraint firstAttribute="trailing" secondItem="zn1-Q5-wBa" secondAttribute="trailing" constant="10" id="cH3-2J-vS8"/>
+                                    <constraint firstItem="zn1-Q5-wBa" firstAttribute="top" secondItem="HSh-Dw-q3u" secondAttribute="bottom" constant="10" id="etU-eG-5Be"/>
+                                    <constraint firstItem="zn1-Q5-wBa" firstAttribute="leading" secondItem="kdF-u5-hAo" secondAttribute="leading" constant="10" id="hPJ-Dn-nKH"/>
+                                    <constraint firstItem="HSh-Dw-q3u" firstAttribute="top" secondItem="sRi-OO-Lbd" secondAttribute="bottom" constant="10" id="iu6-o2-s07"/>
+                                    <constraint firstItem="LF4-aZ-3Xc" firstAttribute="leading" secondItem="kdF-u5-hAo" secondAttribute="leading" constant="10" id="qsK-Fv-BDT"/>
+                                    <constraint firstItem="sRi-OO-Lbd" firstAttribute="top" secondItem="LF4-aZ-3Xc" secondAttribute="bottom" constant="10" id="wDU-xt-rj2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QcP-pl-aiQ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Lis-xI-0hP" firstAttribute="top" secondItem="sgQ-sa-CZ0" secondAttribute="bottom" id="7HD-od-KGg"/>
                             <constraint firstItem="sgQ-sa-CZ0" firstAttribute="top" secondItem="QcP-pl-aiQ" secondAttribute="top" id="Feb-q9-rK4"/>
+                            <constraint firstItem="kdF-u5-hAo" firstAttribute="top" secondItem="QcP-pl-aiQ" secondAttribute="top" id="LHN-qH-LEb"/>
                             <constraint firstItem="QcP-pl-aiQ" firstAttribute="trailing" secondItem="Lis-xI-0hP" secondAttribute="trailing" id="MqB-38-rU1"/>
                             <constraint firstItem="sgQ-sa-CZ0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dk3-iz-b8F" secondAttribute="trailing" constant="8" symbolic="YES" id="RyJ-pH-tMH"/>
                             <constraint firstItem="dk3-iz-b8F" firstAttribute="top" secondItem="QcP-pl-aiQ" secondAttribute="top" id="VBA-So-joy"/>
+                            <constraint firstItem="QcP-pl-aiQ" firstAttribute="bottom" secondItem="kdF-u5-hAo" secondAttribute="bottom" id="VQW-Kf-GCo"/>
+                            <constraint firstItem="kdF-u5-hAo" firstAttribute="leading" secondItem="QcP-pl-aiQ" secondAttribute="leading" id="XLr-74-ZOR"/>
                             <constraint firstItem="Lis-xI-0hP" firstAttribute="leading" secondItem="QcP-pl-aiQ" secondAttribute="leading" id="bR6-P7-PdW"/>
                             <constraint firstItem="QcP-pl-aiQ" firstAttribute="bottom" secondItem="Lis-xI-0hP" secondAttribute="bottom" id="hdQ-kU-CLk"/>
                             <constraint firstItem="dk3-iz-b8F" firstAttribute="leading" secondItem="QcP-pl-aiQ" secondAttribute="leading" constant="10" id="sn1-Fi-ija"/>
                             <constraint firstItem="sgQ-sa-CZ0" firstAttribute="centerX" secondItem="2Ah-FX-LEV" secondAttribute="centerX" id="tH6-hO-0B2"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="sideView" destination="kdF-u5-hAo" id="H31-UD-5Vm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GKw-Ca-CKW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3609" y="-28"/>
+            <point key="canvasLocation" x="4528.3582089552237" y="-28.146453089244851"/>
         </scene>
         <!--Synchronization View Controller-->
         <scene sceneID="50I-Ft-cQa">
@@ -3035,10 +3119,10 @@
             </objects>
             <point key="canvasLocation" x="4345" y="2254"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--More View Controller-->
         <scene sceneID="8LE-2A-fIi">
             <objects>
-                <viewController storyboardIdentifier="SettingsViewController" id="cWb-X8-bBE" customClass="SettingsViewController" customModule="HealthCoach" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MoreViewController" id="cWb-X8-bBE" customClass="MoreViewController" customModule="HealthCoach" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eT6-9h-8cI">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3066,11 +3150,9 @@
                                     <action selector="btnSideMenu:" destination="cWb-X8-bBE" eventType="touchUpInside" id="32e-Ev-RJe"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MLp-cU-QG4">
-                                <rect key="frame" x="5" y="117" width="392" height="713"/>
-                                <color key="backgroundColor" red="0.71372549019999998" green="0.714547822" blue="0.714547822" alpha="0.719308774834437" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="separatorColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.62352941179999999" alpha="0.59504346029999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MLp-cU-QG4">
+                                <rect key="frame" x="5" y="102" width="392" height="738"/>
+                                <color key="backgroundColor" red="0.71372549019999998" green="0.714547822" blue="0.714547822" alpha="0.71930877479999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MoreCell" textLabel="N3f-kw-Giw" style="IBUITableViewCellStyleDefault" id="1ly-5B-hzz">
                                         <rect key="frame" x="0.0" y="50" width="392" height="43.666667938232422"/>
@@ -3174,14 +3256,14 @@
                         <constraints>
                             <constraint firstItem="Jio-My-8EZ" firstAttribute="centerX" secondItem="eT6-9h-8cI" secondAttribute="centerX" id="3jS-ej-WMX"/>
                             <constraint firstItem="MLp-cU-QG4" firstAttribute="leading" secondItem="9UC-mp-FJ9" secondAttribute="leading" constant="5" id="58z-0z-2pB"/>
-                            <constraint firstItem="9UC-mp-FJ9" firstAttribute="bottom" secondItem="MLp-cU-QG4" secondAttribute="bottom" constant="10" id="5Wg-5j-5zf"/>
-                            <constraint firstItem="9UC-mp-FJ9" firstAttribute="bottom" secondItem="FOg-Zy-gOz" secondAttribute="bottom" id="Ht6-CF-gBy"/>
+                            <constraint firstItem="9UC-mp-FJ9" firstAttribute="bottom" secondItem="MLp-cU-QG4" secondAttribute="bottom" id="5Wg-5j-5zf"/>
+                            <constraint firstItem="FOg-Zy-gOz" firstAttribute="top" secondItem="9UC-mp-FJ9" secondAttribute="top" id="BR9-56-Ku9"/>
+                            <constraint firstItem="FOg-Zy-gOz" firstAttribute="bottom" secondItem="9UC-mp-FJ9" secondAttribute="bottom" id="De3-Aj-cco"/>
                             <constraint firstItem="Jio-My-8EZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LYD-eQ-Gb8" secondAttribute="trailing" constant="8" symbolic="YES" id="QKn-2d-3Eb"/>
                             <constraint firstItem="LYD-eQ-Gb8" firstAttribute="leading" secondItem="eT6-9h-8cI" secondAttribute="leading" constant="10" id="ROg-Dg-wjP"/>
                             <constraint firstItem="Jio-My-8EZ" firstAttribute="top" secondItem="9UC-mp-FJ9" secondAttribute="top" id="SRQ-hd-oa3"/>
-                            <constraint firstItem="FOg-Zy-gOz" firstAttribute="top" secondItem="Jio-My-8EZ" secondAttribute="top" id="T2V-rT-1Z0"/>
                             <constraint firstItem="9UC-mp-FJ9" firstAttribute="trailing" secondItem="MLp-cU-QG4" secondAttribute="trailing" constant="5" id="can-gl-FZC"/>
-                            <constraint firstItem="MLp-cU-QG4" firstAttribute="top" secondItem="Jio-My-8EZ" secondAttribute="bottom" constant="15" id="dBd-km-Rtj"/>
+                            <constraint firstItem="MLp-cU-QG4" firstAttribute="top" secondItem="Jio-My-8EZ" secondAttribute="bottom" id="dBd-km-Rtj"/>
                             <constraint firstItem="LYD-eQ-Gb8" firstAttribute="top" secondItem="9UC-mp-FJ9" secondAttribute="top" id="dvJ-l8-moC"/>
                             <constraint firstItem="FOg-Zy-gOz" firstAttribute="leading" secondItem="9UC-mp-FJ9" secondAttribute="leading" id="h04-eS-GKX"/>
                         </constraints>
@@ -3193,12 +3275,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ogY-3B-2NW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4344.7761194029845" y="-28.146453089244851"/>
+            <point key="canvasLocation" x="5264.1791044776119" y="-28.146453089244851"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="qW5-cT-vFT">
             <objects>
-                <viewController id="g5A-mA-vEQ" customClass="SettingsViewController" customModule="HealthCoach" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="g5A-mA-vEQ" customClass="SettingsViewController" customModule="HealthCoach" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="raQ-xG-EH7">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3223,14 +3305,12 @@
                                     <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="btnSideMenu:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="wEL-Dk-50Z"/>
+                                    <action selector="btnSideMenu:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="og1-Bo-yda"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RGU-fP-vQw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RGU-fP-vQw">
                                 <rect key="frame" x="5" y="107" width="392" height="728"/>
-                                <color key="backgroundColor" red="0.71372549019999998" green="0.714547822" blue="0.714547822" alpha="0.71930877479999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="separatorColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.62352941179999999" alpha="0.59504346029999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" textLabel="KDI-NF-RJN" style="IBUITableViewCellStyleDefault" id="lYc-4S-wky">
                                         <rect key="frame" x="0.0" y="50" width="392" height="43.666667938232422"/>
@@ -3268,7 +3348,7 @@
                                             <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btnHomeSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="BSG-8b-fsC"/>
+                                            <action selector="btnHomeSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="6vH-98-PMK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSa-le-pLl">
@@ -3281,7 +3361,7 @@
                                             <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btnMoreSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="wvP-u4-xFI"/>
+                                            <action selector="btnMoreSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="jCK-I9-D2b"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCO-4E-dEA">
@@ -3294,7 +3374,7 @@
                                             <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btnSettingsSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="vgV-Ma-DC3"/>
+                                            <action selector="btnSettingsSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="hen-8g-Zmd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xh4-Nk-P88">
@@ -3307,7 +3387,7 @@
                                             <color key="baseForegroundColor" red="0.36763339890000002" green="0.47573495900000001" blue="0.57019389669999998" alpha="0.765625" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="btnMedicationSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="YNa-bR-62k"/>
+                                            <action selector="btnMedicationSide:" destination="g5A-mA-vEQ" eventType="touchUpInside" id="byP-x1-eXW"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3347,13 +3427,30 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="sideView" destination="gCO-Kp-tmi" id="vMu-3k-mEG"/>
-                        <outlet property="tableView" destination="RGU-fP-vQw" id="Gcc-CM-LD9"/>
+                        <outlet property="sideView" destination="gCO-Kp-tmi" id="fiC-rP-P5c"/>
+                        <outlet property="tableView" destination="RGU-fP-vQw" id="bW8-E6-2nf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FRp-W3-khR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5084" y="-28"/>
+            <point key="canvasLocation" x="6002.9850746268658" y="-28.146453089244851"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="a0N-Vl-xhv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dEe-BT-5zN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pvx-xe-6hL">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="J44-xZ-Ndr" kind="relationship" relationship="rootViewController" id="Guo-ti-T58"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Ab-YL-mBe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2928.3582089552237" y="-28.146453089244851"/>
         </scene>
     </scenes>
     <resources>

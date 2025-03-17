@@ -88,14 +88,15 @@ class BirthHeightGenderViewController: UIViewController, UITextFieldDelegate {
                             You will shortly receive an email to activate your account.
                             You can now use the app for 24 hours. If you do not confirm your account, you will be logged out and your data will be deleted.
                     """, isSuccess: true) {
-                        if self.howItCome == "WithSignupMethod" {
-                            let finalSignupVC = self.storyboard?.instantiateViewController(identifier: "FinalSignupScreenViewController") as! FinalSignupScreenViewController
-                                                    self.navigationController?.pushViewController(finalSignupVC, animated: true)
-                        }
-                        else if self.howItCome == "WithoutSignupMethod" {
-                            let myDevicesVC = self.storyboard?.instantiateViewController(identifier: "MyDevicesViewController") as! MyDevicesViewController
-                            self.navigationController?.pushViewController(myDevicesVC, animated: true)
-                        }
+                        
+                        
+                        Navigation.shared.makeConditionViewController(
+                            firstIdentifier: "FinalSignupScreenViewController",
+                            secondIdentifier: "MyDevicesViewController",
+                            from: self,
+                            condition: self.howItCome == "WithSignupMethod"
+                        )
+                  
                     }
         }
 

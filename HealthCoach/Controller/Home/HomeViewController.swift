@@ -57,13 +57,14 @@ class HomeViewController: UIViewController {
 
     @IBAction func btnMedicationSide(_ sender: UIButton) {
         print("Medication button tapped")
+         Navigation.shared.navigate(from: self, withIdentifier: "MedicationViewController")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             SideMenuManager.shared.closeSideMenu()
         }
     }
 
     @IBAction func btnHomeSide(_ sender: UIButton) {
-        print("Home button tapped")
+      
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             SideMenuManager.shared.closeSideMenu()
         }
@@ -71,6 +72,7 @@ class HomeViewController: UIViewController {
 
     @IBAction func btnMoreSide(_ sender: UIButton) {
         print("More button tapped")
+        Navigation.shared.navigate(from: self, withIdentifier: "MoreViewController")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             SideMenuManager.shared.closeSideMenu()
         }
@@ -78,6 +80,7 @@ class HomeViewController: UIViewController {
 
     @IBAction func btnSettingsSide(_ sender: UIButton) {
         print("Settings button tapped")
+        Navigation.shared.navigate(from: self, withIdentifier: "SettingsViewController")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             SideMenuManager.shared.closeSideMenu()
         }

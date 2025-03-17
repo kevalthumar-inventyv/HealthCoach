@@ -9,21 +9,74 @@ import UIKit
 
 class MedicationViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBAction func btnAddMedication(_ sender: UIButton) {
     }
     
 
-    /*
-    // MARK: - Navigation
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        SideMenuManager.shared.showSideMenu(in: self, sideMenuView: sideView)
     }
-    */
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Print the actual width to debug
+        print("Side menu width before adjustment: \(sideView.frame.width)")
+
+        // Ensure the menu is hidden off-screen
+        sideView.frame.origin.x = -sideView.frame.width
+    }
+
+
+
+    @IBOutlet weak var sideView: UIView!
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        sideView.frame.origin.x = -sideView.frame.width
+    }
+
+    @IBAction func btnSideMenu(_ sender: UIButton) {
+        sideView.alpha = 1
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.openSideMenu()
+        }
+    }
+
+    @IBAction func btnMedicationSide(_ sender: UIButton) {
+        print("Medication button tapped")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
+    }
+
+    @IBAction func btnHomeSide(_ sender: UIButton) {
+        print("Home button tapped")
+        Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
+    }
+
+    @IBAction func btnMoreSide(_ sender: UIButton) {
+        print("More button tapped")
+        Navigation.shared.navigate(from: self, withIdentifier: "MoreViewController")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
+    }
+
+    @IBAction func btnSettingsSide(_ sender: UIButton) {
+        print("Settings button tapped")
+        Navigation.shared.navigate(from: self, withIdentifier: "SettingsViewController")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
+    }
+    
+
 
 }

@@ -13,12 +13,12 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.separatorInset = .zero
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
+        tableView.register(
+            UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
         SideMenuManager.shared.showSideMenu(in: self, sideMenuView: sideView)
     }
-
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -33,35 +33,39 @@ class SettingsViewController: UIViewController {
 
     @IBAction func btnMedicationSide(_ sender: UIButton) {
         print("Medication button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+ Navigation.shared.navigate(from: self, withIdentifier: "MedicationViewController")
+        
+               DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                   SideMenuManager.shared.closeSideMenu()
+               }
     }
 
     @IBAction func btnHomeSide(_ sender: UIButton) {
         print("Home button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+                Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    SideMenuManager.shared.closeSideMenu()
+                }
     }
 
     @IBAction func btnMoreSide(_ sender: UIButton) {
         print("More button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+                Navigation.shared.navigate(from: self, withIdentifier: "MoreViewController")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    SideMenuManager.shared.closeSideMenu()
+                }
     }
 
     @IBAction func btnSettingsSide(_ sender: UIButton) {
-        print("Settings button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    SideMenuManager.shared.closeSideMenu()
+                }
     }
-    
+
     @IBOutlet weak var tableView: UITableView!
 
-    let sections = [
+    let mySectionFields = [
         ["General", "Code lock"],
         ["Add device"],
         [
@@ -81,14 +85,19 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return mySectionFields.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int
     {
-        return sections[section].count
+        return mySectionFields[section].count
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell
@@ -96,28 +105,41 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "SettingsCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = sections[indexPath.section][indexPath.row]
+        content.text = mySectionFields[indexPath.section][indexPath.row]
         cell.contentConfiguration = content
         return cell
     }
 
-    func tableView(
-        _ tableView: UITableView, titleForHeaderInSection section: Int
-    ) -> String? {
-        return sectionHeaders[section]
-    }
-    
-    
+//    func tableView(
+//        _ tableView: UITableView, titleForHeaderInSection section: Int
+//    ) -> String? {
+//        return sectionHeaders[section]
+//    }
+//
+//    func tableView(
+//        _ tableView: UITableView, heightForHeaderInSection section: Int
+//    ) -> CGFloat {
+//        return 10
+//    }
 
     func tableView(
-        _ tableView: UITableView, heightForHeaderInSection section: Int
-    ) -> CGFloat {
-        return 5
+        _ tableView: UITableView, viewForHeaderInSection section: Int
+    ) -> UIView? {
+        let headerView = UIView(
+            frame: CGRect(
+                x: 0, y: 0, width: tableView.frame.width - 10, height: 18))
+        headerView.backgroundColor = .systemGroupedBackground
+        let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.frame.width - 20, height: 18))
+        label.text = sectionHeaders[section]
+        label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
+        label.textColor = .darkGray
+        headerView.addSubview(label)
+        return headerView
     }
 
     func tableView(
         _ tableView: UITableView, didSelectRowAt indexPath: IndexPath
     ) {
-        print("Selected: \(sections[indexPath.section][indexPath.row])")
+        print("Selected: \(mySectionFields[indexPath.section][indexPath.row])")
     }
 }

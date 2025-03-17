@@ -22,7 +22,9 @@ class SideMenuManager {
     func showSideMenu(in viewController: UIViewController, sideMenuView: UIView) {
         self.sideMenuView = sideMenuView
         
-        sideMenuView.frame.origin.x = -sideMenuView.frame.width
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            sideMenuView.frame.origin.x = -sideMenuView.frame.width
+        }
         
         if overlayView == nil {
             overlayView = UIView(frame: viewController.view.bounds)
@@ -47,14 +49,14 @@ class SideMenuManager {
         view.addGestureRecognizer(swipeGestureClose)
 
         let swipeGestureOpen = UISwipeGestureRecognizer(target: self, action: #selector(openSideMenu))
+        
         swipeGestureOpen.direction = .right
         view.addGestureRecognizer(swipeGestureOpen)
     }
     
     @objc func openSideMenu() {
-        print("Side menu opened")
         guard let sideMenuView = sideMenuView else { return }
-        
+        sideMenuView.alpha = 1
         UIView.animate(withDuration: 0.3) {
             sideMenuView.frame.origin.x = 0
             self.overlayView.alpha = 0.5

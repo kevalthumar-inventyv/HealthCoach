@@ -29,36 +29,39 @@ class MoreViewController: UIViewController {
     }
 
     @IBAction func btnMedicationSide(_ sender: UIButton) {
-        print("Medication button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+ Navigation.shared.navigate(from: self, withIdentifier: "MedicationViewController")
+        
+               DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                   SideMenuManager.shared.closeSideMenu()
+               }
     }
 
     @IBAction func btnHomeSide(_ sender: UIButton) {
         print("Home button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+                Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    SideMenuManager.shared.closeSideMenu()
+                }
     }
 
     @IBAction func btnMoreSide(_ sender: UIButton) {
-        print("More button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    SideMenuManager.shared.closeSideMenu()
+                }
     }
 
     @IBAction func btnSettingsSide(_ sender: UIButton) {
         print("Settings button tapped")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            SideMenuManager.shared.closeSideMenu()
-        }
+                Navigation.shared.navigate(from: self, withIdentifier: "SettingsViewController")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    SideMenuManager.shared.closeSideMenu()
+                }
     }
 
     @IBOutlet weak var tableView: UITableView!
 
-    let sections = [
+    let mySectionFields = [
         ["Synchronisation", "About", "Export", "Rate the App"],
         ["Send feedback", "FAQ", "App Tour"],
         ["Imprint", "Terms and Conditions", "Data protection", "Disclaimer"],
@@ -69,13 +72,13 @@ class MoreViewController: UIViewController {
 extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return mySectionFields.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int
     {
-        return sections[section].count
+        return mySectionFields[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
@@ -84,7 +87,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "MoreCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-        content.text = sections[indexPath.section][indexPath.row]
+        content.text = mySectionFields[indexPath.section][indexPath.row]
         cell.contentConfiguration = content
         return cell
     }
@@ -99,9 +102,21 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
         return 5
     }
 
+//    func tableView(
+//        _ tableView: UITableView, viewForHeaderInSection section: Int
+//    ) -> UIView? {
+//        let headerView = UIView(
+//            frame: CGRect(
+//                x: 0, y: 0, width: tableView.frame.width - 10, height: 5))
+//        let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.frame.width - 20, height: 5))
+//        label.text = " "
+//        headerView.addSubview(label)
+//        return headerView
+//    }
+    
     func tableView(
         _ tableView: UITableView, didSelectRowAt indexPath: IndexPath
     ) {
-        print("Selected: \(sections[indexPath.section][indexPath.row])")
+        print("Selected: \(mySectionFields[indexPath.section][indexPath.row])")
     }
 }
