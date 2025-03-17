@@ -29,7 +29,7 @@ class EmailPasswordViewController: UIViewController {
     }
 
     func updateCheckbox() {
-        let imageName = isChecked ? "checkmark.square" : "square"
+        let imageName = isChecked ? "checkmark.square.fill" : "square"
         checkboxButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
 

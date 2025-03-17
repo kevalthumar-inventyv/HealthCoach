@@ -69,8 +69,6 @@ class AppIntroViewController: UIViewController, UICollectionViewDataSource {
 
 extension AppIntroViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print(self.collectionView.frame.width)
-        print(collectionView.frame.width)
-        return CGSize(width: collectionView.frame.width , height: collectionView.frame.height   )
+        return CGSize(width: collectionView.frame.width , height: collectionView.frame.height)
     }
 }

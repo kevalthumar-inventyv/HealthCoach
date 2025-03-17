@@ -42,7 +42,7 @@ class Utilities {
     // MARK: - Toggle Secure Text Entry (Password Visibility)
     static func toggleEye(for textField: UITextField, sender: UIButton) {
         textField.isSecureTextEntry.toggle()
-        let eyeIcon = textField.isSecureTextEntry ? "eye" : "eye.slash"
+        let eyeIcon = textField.isSecureTextEntry ? "eye.slash" : "eye"
         let config = UIImage.SymbolConfiguration(scale: .medium)
         let image = UIImage(systemName: eyeIcon, withConfiguration: config)
         sender.setImage(image, for: .normal)
