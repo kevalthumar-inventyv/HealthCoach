@@ -16,9 +16,11 @@ class AppIntroViewController: UIViewController, UICollectionViewDataSource {
         UIImage(named: "appIntro_5"),
         UIImage(named: "appIntro_6"),
     ]
-    
-    var currentPage = 0
 
+    var currentPage = 0
+    @IBOutlet weak var btnNextOut: UIButton!
+    var fromWhereItComes: String?
+    
     @IBOutlet weak var pageView: UIPageControl!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var swipeOut: UIButton!
@@ -26,7 +28,7 @@ class AppIntroViewController: UIViewController, UICollectionViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         collectionView.delegate = self
         collectionView.dataSource = self
 
@@ -34,18 +36,28 @@ class AppIntroViewController: UIViewController, UICollectionViewDataSource {
         updateButtons()
     }
 
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        shouldSelectItemAt indexPath: IndexPath
+    ) -> Bool {
         return false
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView, numberOfItemsInSection section: Int
+    ) -> Int {
         return image.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "appintrocell", for: indexPath) as! AppIntroCollectionViewCell
+    func collectionView(
+        _ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell =
+            collectionView.dequeueReusableCell(
+                withReuseIdentifier: "appintrocell", for: indexPath)
+            as! AppIntroCollectionViewCell
         cell.image.image = image[indexPath.row]
-        
+
         return cell
     }
 
@@ -57,18 +69,37 @@ class AppIntroViewController: UIViewController, UICollectionViewDataSource {
     }
 
     func updateButtons() {
-        continueBtnOut.isHidden = currentPage != image.count - 1
+        print("currentPage == image.count - 1 :- \(currentPage == image.count - 1)")
+        
+        print("romWhereItComes == More :- \(fromWhereItComes == "More") ")
+        
+        print("currentPage == image.count - 1 && fromWhereItComes == More \(currentPage == image.count - 1 && fromWhereItComes == "More")")
+        
+        btnNextOut.isHidden = !(currentPage == image.count - 1 && fromWhereItComes == "More")
+        continueBtnOut.isHidden = !(currentPage == image.count - 1 && fromWhereItComes != "More")
         swipeOut.isHidden = currentPage != 0
+        
     }
 
+    @IBAction func btnNext(_ sender: UIButton) {
+        Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
+    }
     @IBAction func continueBtn(_ sender: UIButton) {
-        let myDevicesVC = self.storyboard?.instantiateViewController(identifier: "MyDevicesViewController") as! MyDevicesViewController
-        self.navigationController?.pushViewController(myDevicesVC, animated: true)
+
+
+        Navigation.shared.navigate(from: self, withIdentifier: "MyDevicesViewController")
+
     }
 }
 
-extension AppIntroViewController : UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width , height: collectionView.frame.height)
+extension AppIntroViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(
+            width: collectionView.frame.width,
+            height: collectionView.frame.height)
     }
 }

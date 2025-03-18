@@ -13,7 +13,6 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.separatorInset = .zero
         tableView.register(
             UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
@@ -33,34 +32,37 @@ class SettingsViewController: UIViewController {
 
     @IBAction func btnMedicationSide(_ sender: UIButton) {
         print("Medication button tapped")
- Navigation.shared.navigate(from: self, withIdentifier: "MedicationViewController")
-        
-               DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                   SideMenuManager.shared.closeSideMenu()
-               }
+        Navigation.shared.navigate(
+            from: self, withIdentifier: "MedicationViewController")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
     }
 
     @IBAction func btnHomeSide(_ sender: UIButton) {
         print("Home button tapped")
-                Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    SideMenuManager.shared.closeSideMenu()
-                }
+        Navigation.shared.navigate(
+            from: self, withIdentifier: "HomeViewController")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
     }
 
     @IBAction func btnMoreSide(_ sender: UIButton) {
         print("More button tapped")
-                Navigation.shared.navigate(from: self, withIdentifier: "MoreViewController")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    SideMenuManager.shared.closeSideMenu()
-                }
+        Navigation.shared.navigate(
+            from: self, withIdentifier: "MoreViewController")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
     }
 
     @IBAction func btnSettingsSide(_ sender: UIButton) {
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    SideMenuManager.shared.closeSideMenu()
-                }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SideMenuManager.shared.closeSideMenu()
+        }
     }
 
     @IBOutlet weak var tableView: UITableView!
@@ -93,11 +95,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     {
         return mySectionFields[section].count
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+    func tableView(
+        _ tableView: UITableView, heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 40
     }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell
@@ -110,28 +113,30 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-//    func tableView(
-//        _ tableView: UITableView, titleForHeaderInSection section: Int
-//    ) -> String? {
-//        return sectionHeaders[section]
-//    }
-//
-//    func tableView(
-//        _ tableView: UITableView, heightForHeaderInSection section: Int
-//    ) -> CGFloat {
-//        return 10
-//    }
+    //    func tableView(
+    //        _ tableView: UITableView, titleForHeaderInSection section: Int
+    //    ) -> String? {
+    //        return sectionHeaders[section]
+    //    }
+    //
+    //    func tableView(
+    //        _ tableView: UITableView, heightForHeaderInSection section: Int
+    //    ) -> CGFloat {
+    //        return 10
+    //    }
 
     func tableView(
         _ tableView: UITableView, viewForHeaderInSection section: Int
     ) -> UIView? {
         let headerView = UIView(
             frame: CGRect(
-                x: 0, y: 0, width: tableView.frame.width - 10, height: 18))
-        headerView.backgroundColor = .systemGroupedBackground
-        let label = UILabel(frame: CGRect(x: 10, y: 0, width: tableView.frame.width - 20, height: 18))
+                x: 0, y: 0, width: tableView.frame.width, height: 10))
+        headerView.backgroundColor = UIColor(
+            red: 202 / 255, green: 202 / 255, blue: 202 / 255, alpha: 1.00)
+        let label = UILabel(
+            frame: CGRect(x: 5, y: 0, width: tableView.frame.width, height: 18))
         label.text = sectionHeaders[section]
-        label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textColor = .darkGray
         headerView.addSubview(label)
         return headerView
@@ -140,6 +145,29 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(
         _ tableView: UITableView, didSelectRowAt indexPath: IndexPath
     ) {
-        print("Selected: \(mySectionFields[indexPath.section][indexPath.row])")
+        let selectedItem = mySectionFields[indexPath.section][indexPath.row]
+        print("Selected: \(selectedItem)")
+
+        let viewControllerMap: [String: String] = [
+            "General": "GeneralViewController",
+            "Add device": "AddDeviceViewController",
+            "Target device": "MyDevicesViewController",
+            "Language": "LanguageViewController",
+            "Unit": "UnitViewController",
+            "Date format": "DateFormateViewController",
+            "Time format": "TimeFormateViewController",
+            "First day of week": "FirstDayOfTheWeekViewController"
+        ]
+
+        if let identifier = viewControllerMap[selectedItem] {
+
+            Navigation.shared.navigate(from: self, withIdentifier: identifier)
+
+        } else {
+            print(
+                "No valid ViewController or Link for selected item: \(selectedItem)"
+            )
+        }
     }
+
 }

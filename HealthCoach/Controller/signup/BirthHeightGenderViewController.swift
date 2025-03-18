@@ -132,7 +132,7 @@ class BirthHeightGenderViewController: UIViewController, UITextFieldDelegate {
         } else if textField == HeightTextField {
             heightPickerBtn(textField)  // Call your height picker function
         }
-        return false  // **Disables keyboard opening**
+        return false
     }
 
     @IBAction func birthdayPickerBtn(_ sender: UITextField) {

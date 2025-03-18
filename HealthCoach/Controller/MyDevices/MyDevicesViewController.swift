@@ -14,7 +14,7 @@ class MyDevicesViewController: UIViewController {
     let devices = [
         "SAS75", "SBC53", "SBF70/SBF71", "SBF72", "SBF73", "SBM37", "SBM67",
     ]
-    let rowHeight: CGFloat = 40
+    let rowHeight: CGFloat = 45
     let extraPadding: CGFloat = 0
 
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ class MyDevicesViewController: UIViewController {
         let totalHeight = (rowHeight * CGFloat(devices.count)) + extraPadding
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.heightAnchor.constraint(equalToConstant: totalHeight)  // ✅ Set calculated height
+            tableView.heightAnchor.constraint(equalToConstant: totalHeight) 
         ])
     }
 }
