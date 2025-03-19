@@ -7,11 +7,13 @@
 
 import UIKit
 
-class SAS75TableViewCell: UITableViewCell {
+class SAS75TableViewCell: UITableViewCell , UITextFieldDelegate{
 
     @IBOutlet weak var textField: ReadOnlyTextField!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var switchOut: UISwitch!
+    
+    
     
     @IBAction func switchBtn(_ sender: UISwitch) {
         parentViewController?.isSwitchOn = sender.isOn
@@ -22,6 +24,7 @@ class SAS75TableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        textField.delegate = self
         textField.addTarget(self, action: #selector(showPicker), for: .allTouchEvents)
         textField.tintColor = .clear // Hides the cursor
     }

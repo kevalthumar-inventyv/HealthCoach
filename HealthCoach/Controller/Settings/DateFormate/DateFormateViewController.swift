@@ -11,5 +11,8 @@ class DateFormateViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    @IBAction func btnBack(_ sender: UIButton) {
+        Navigation.shared.popViewController(from: self)
+    }
 }
 

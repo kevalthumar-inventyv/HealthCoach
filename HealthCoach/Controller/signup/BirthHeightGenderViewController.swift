@@ -9,9 +9,9 @@ import UIKit
 
 class BirthHeightGenderViewController: UIViewController, UITextFieldDelegate {
     var howItCome = "WithSignupMethod"
-    
+
     @IBAction func nextBtn(_ sender: UIButton) {
-        validateTextField()
+        if validateTextField() {return}
         sendData()
     }
     @IBAction func backBtn(_ sender: UIButton) {
@@ -87,17 +87,17 @@ class BirthHeightGenderViewController: UIViewController, UITextFieldDelegate {
                             Thank you for registering!
                             You will shortly receive an email to activate your account.
                             You can now use the app for 24 hours. If you do not confirm your account, you will be logged out and your data will be deleted.
-                    """, isSuccess: true) {
-                        
-                        
-                        Navigation.shared.makeConditionViewController(
-                            firstIdentifier: "FinalSignupScreenViewController",
-                            secondIdentifier: "MyDevicesViewController",
-                            from: self,
-                            condition: self.howItCome == "WithSignupMethod"
-                        )
-                  
-                    }
+                    """, isSuccess: true
+            ) {
+
+                Navigation.shared.makeConditionViewController(
+                    firstIdentifier: "FinalSignupScreenViewController",
+                    secondIdentifier: "MyDevicesViewController",
+                    from: self,
+                    condition: self.howItCome == "WithSignupMethod"
+                )
+
+            }
         }
 
         // Add actions
@@ -116,14 +116,15 @@ class BirthHeightGenderViewController: UIViewController, UITextFieldDelegate {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-    func validateTextField() {
-        guard !BirthdayTextField.text!.isEmpty, !HeightTextField.text!.isEmpty
-        else {
-            Utilities.showAlert(
-                on: self, title: "Error",
-                message: "Please fill all the fields")
-            return
+    func validateTextField() -> Bool {
+        let data = [
+            "Date of Birth":  BirthdayTextField.text ?? "",
+            "Height":  HeightTextField.text ?? ""
+        ]
+        if Validation.shared.checkValidation(for: data, viewController: self) {
+            return false
         }
+        return true
     }
 
     @objc func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

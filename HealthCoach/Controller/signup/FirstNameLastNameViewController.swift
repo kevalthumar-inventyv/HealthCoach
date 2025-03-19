@@ -16,7 +16,13 @@ class FirstNameLastNameViewController: UIViewController {
     }
     
     @IBAction func nextBtn(_ sender: UIButton) {
-        validateTextField()
+        let data = [
+            "FirstName": firstNameTextField.text ?? "FName",
+            "LastName": lastNameTextField.text ?? "LName"
+        ]
+        if Validation.shared.checkValidation(for: data, viewController: self){
+            return
+        }
         sendData()
     }
     
@@ -29,15 +35,6 @@ class FirstNameLastNameViewController: UIViewController {
         )
         let birthHeightGenderVC = self.storyboard?.instantiateViewController(identifier: "BirthHeightGenderViewController") as! BirthHeightGenderViewController
         self.navigationController?.pushViewController(birthHeightGenderVC, animated: true)
-    }
-    
-    func validateTextField() {
-        guard !firstNameTextField.text!.isEmpty, !lastNameTextField.text!.isEmpty else {
-            Utilities.showAlert(
-                on:  self, title: "Error",
-                message: "Please fill all the fields")
-            return
-        }
     }
     
     override func viewDidLoad() {

@@ -73,7 +73,7 @@ class PickerManager: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
             selectedValues = ["Calories", "500"]  // ✅ Default selection
 
         case .targetSleep:
-            pickerData = [(0...24).map { "\($0)" }, (0...59).map { "\($0)" }]
+            pickerData = [(0...23).map { "\($0)" }, (0...59).map { "\($0)" }]
             selectedValues = ["08", "00"]  // Default: "08:00 Hours"
 
         case .walk:

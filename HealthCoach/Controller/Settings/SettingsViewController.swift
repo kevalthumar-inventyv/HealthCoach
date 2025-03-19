@@ -71,7 +71,7 @@ class SettingsViewController: UIViewController {
         ["General", "Code lock"],
         ["Add device"],
         [
-            "Target device", "Language", "Unit", "Date format", "Time format",
+            "Target", "Language", "Unit", "Date format", "Time format",
             "First day of week",
         ],
         ["Logout"],
@@ -150,8 +150,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
         let viewControllerMap: [String: String] = [
             "General": "GeneralViewController",
-            "Add device": "AddDeviceViewController",
-            "Target device": "MyDevicesViewController",
+            "Add device": "MyDevicesViewController",
+            "Target" : "TargetViewController",
             "Language": "LanguageViewController",
             "Unit": "UnitViewController",
             "Date format": "DateFormateViewController",
@@ -160,8 +160,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         ]
 
         if let identifier = viewControllerMap[selectedItem] {
-
-            Navigation.shared.navigate(from: self, withIdentifier: identifier)
+            
+            if selectedItem == "Add device" {
+                guard let AddDeviceVC = Navigation.shared.navigate(from: self, withIdentifier: "MyDevicesViewController") as? MyDevicesViewController else { return }
+                AddDeviceVC.fromWhereItCame = "SettingsViewController"
+            }
+            else{
+                Navigation.shared.navigate(from: self, withIdentifier: identifier)
+            }
 
         } else {
             print(

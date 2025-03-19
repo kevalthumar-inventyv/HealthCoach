@@ -30,7 +30,6 @@ class SAS75ViewController: UIViewController {
         tableView.estimatedRowHeight = 80
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
-        pickerManager.delegate = self
     }
 
     @IBAction func nextBtn(_ sender: UIButton) {

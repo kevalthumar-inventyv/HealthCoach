@@ -46,16 +46,44 @@ class GeneralViewController : UIViewController, UITextFieldDelegate{
     }
     
     
+    @IBAction func btnBack(_ sender: UIButton) {
+        Navigation.shared.popViewController(from: self)
+    }
+    
+    @IBAction func btnSave(_ sender: UIButton) {
+        
+
+        let userData: [String: String] = [
+            "gender": selectedGender,
+            "FirstName": textfieldFirstName.text ?? "",
+            "LastName": textfieldLastName.text ?? "",
+            "Height": textfieldHeightOut.text ?? "",
+            "DateOfBirth": textfieldBirthDayOut.text ?? ""
+        ]
+        
+        if !Validation.shared.checkValidation(for: userData, viewController: self ) { return }
+        
+        UserDefaults.standard.setValuesForKeys(userData)
+
+        Utilities.showAlert(on: self, title: "Success", message: "Data saved successfully",isSuccess: true) {
+            Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
+        }
+    }
+
+ 
+
     
     @IBAction func btnFemale(_ sender: UIButton) {
         
-        
+        selectedGender = "Female"
+        updateRadioButtons()
     }
     
     
     @IBAction func btnMale(_ sender: UIButton) {
         
-        
+        selectedGender = "Male"
+        updateRadioButtons()
     }
     
     @IBAction func textfieldBirthDay(_ sender: UnderlinedTextField) {

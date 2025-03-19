@@ -34,46 +34,41 @@ class EmailPasswordViewController: UIViewController {
     }
 
     @IBAction func nextBtn(_ sender: UIButton) {
-        validateFields()
+        if !validateFields() {
+            return
+        }
+        Utilities.showAlert(
+            on: self, title: "Success", message: "You can proceed!",
+            isSuccess: true
+        ) {
+            self.sendData()
+            Navigation.shared.navigate(from: self, withIdentifier: "FirstNameLastNameViewController")
+        }
     }
 
     // MARK: - Validation Function
-    func validateFields() {
-        guard let email = emailTextField.text, !email.isEmpty else {
-            Utilities.showAlert(on: self, title: "Error", message: "Please enter an email.")
-            return
+    func validateFields() -> Bool{
+        let validation = Validation.shared
+
+        let data = [
+            "Email" : emailTextField.text ?? "",
+            "Password" : PasswordTextField.text ?? "",
+            "Confirm Password" : confirmPasswordTextField.text ?? ""
+        ]
+        if !validation.checkValidation(for: data, viewController: self) {
+            return false
         }
 
-        guard Utilities.isValidEmail(email) else {
-            Utilities.showAlert(on: self, title: "Error", message: "Invalid email format. Please enter a valid email address.")
-            return
+        guard
+            PasswordTextField.text ?? "" == confirmPasswordTextField.text ?? ""
+        else {
+            Utilities.showAlert(
+                on: self, title: "Error",
+                message: "Passwords do not match. Please try again.")
+            return false
         }
-
-        guard let password = PasswordTextField.text, !password.isEmpty else {
-            Utilities.showAlert(on: self, title: "Error", message: "Please enter a password.")
-            return
-        }
-
-        guard Utilities.isValidPassword(password) else {
-            Utilities.showAlert(on: self, title: "Error", message: "Password must be at least 12 characters long, with 1 uppercase, 1 special character, and 1 number.")
-            return
-        }
-
-        guard let confirmPassword = confirmPasswordTextField.text, !confirmPassword.isEmpty else {
-            Utilities.showAlert(on: self, title: "Error", message: "Please confirm your password.")
-            return
-        }
-
-        guard password == confirmPassword else {
-            Utilities.showAlert(on: self, title: "Error", message: "Passwords do not match. Please try again.")
-            return
-        }
-
-        Utilities.showAlert(on: self, title: "Success", message: "You can proceed!", isSuccess: true) {
-            self.sendData()
-            let firstNameLastNameVC = self.storyboard?.instantiateViewController(identifier: "FirstNameLastNameViewController") as! FirstNameLastNameViewController
-            self.navigationController?.pushViewController(firstNameLastNameVC, animated: true)
-        }
+        return true
+        
     }
 
     // MARK: - Send data to API

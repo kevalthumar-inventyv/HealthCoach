@@ -9,7 +9,9 @@ import UIKit
 
 class MyDevicesViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!  // ✅ Connect this from storyboard
+    @IBOutlet weak var tableView: UITableView!
+    
+    var fromWhereItCame: String?
 
     let devices = [
         "SAS75", "SBC53", "SBF70/SBF71", "SBF72", "SBF73", "SBM37", "SBM67",
@@ -27,11 +29,23 @@ class MyDevicesViewController: UIViewController {
         BluetoothManager.shared.checkBluetoothStatus { isOn in
             print("🔵 Bluetooth Status: \(isOn ? "ON" : "OFF")")
         }
+        
+        btnBackOut.isHidden = fromWhereItCame != "SettingsViewController"
+        btnContinueOut.isHidden = fromWhereItCame == "SettingsViewController"
     }
-
+    
+    
+    @IBAction func btnBack(_ sender: UIButton) {
+        Navigation.shared.popViewController(from: self)
+    }
+    
+    @IBOutlet weak var btnBackOut: UIButton!
+    
+    
+    @IBOutlet weak var btnContinueOut: UIButton!
+    
     @IBAction func continueBtn(_ sender: UIButton) {
-        let HomeVC = self.storyboard?.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
-                    self.navigationController?.pushViewController(HomeVC, animated: true)
+        Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
     }
     private func updateTableViewHeight() {
         let totalHeight = (rowHeight * CGFloat(devices.count)) + extraPadding

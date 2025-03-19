@@ -23,27 +23,30 @@ class LoginViewController: UIViewController {
             return
         }
 
-        guard Utilities.isValidEmail(email) else {
+        guard Validation.shared.isValidEmail(email) else {
             Utilities.showAlert(
                 on: self, title: "Error",
                 message:
                     "Invalid email format. Please enter a valid email address.")
             return
         }
-        
+
         Utilities.showAlert(
-            on: self, title: "Success", message: "Forget Password Link Sent Successfully",
+            on: self, title: "Success",
+            message: "Forget Password Link Sent Successfully",
             isSuccess: true
         )
-        
+
     }
 
     @IBAction func backBtn(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        Navigation.shared.popToRootViewController(from: self)
     }
 
     @IBAction func nextBtn(_ sender: UIButton) {
-        validateTextField()
+        if !validateTextField() {
+            return
+        }
         sendData()
     }
 
@@ -58,45 +61,38 @@ class LoginViewController: UIViewController {
             on: self, title: "Success", message: "Login Successfully",
             isSuccess: true
         ) {
-            let HomeVC =
-                self.storyboard?.instantiateViewController(
-                    identifier: "HomeViewController")
-                as! HomeViewController
-            self.navigationController?.pushViewController(
-                HomeVC, animated: true)
+            Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
         }
 
     }
 
-    func validateTextField() {
-        guard let email = emailTextField.text, !email.isEmpty else {
-            Utilities.showAlert(
-                on: self, title: "Error", message: "Please enter an email.")
-            return
+    func validateTextField() -> Bool{
+
+        let data = [
+            "Email" : emailTextField.text ?? "",
+            "Password" : passwordTextField.text ?? ""
+        ]
+        if Validation.shared.checkValidation(for: data, viewController: self) {
+            return false
         }
 
-        guard Utilities.isValidEmail(email) else {
+        guard Validation.shared.isValidEmail(emailTextField.text ?? "") else {
             Utilities.showAlert(
                 on: self, title: "Error",
                 message:
                     "Invalid email format. Please enter a valid email address.")
-            return
+            return false
         }
-
-        guard let password = passwordTextField.text, !password.isEmpty else {
-            Utilities.showAlert(
-                on: self, title: "Error", message: "Please enter a password.")
-            return
-        }
-
-        guard Utilities.isValidPassword(password) else {
+        guard Validation.shared.isValidPassword(passwordTextField.text ?? "")
+        else {
             Utilities.showAlert(
                 on: self, title: "Error",
                 message:
                     "Password must be at least 12 characters long, with 1 uppercase, 1 special character, and 1 number."
             )
-            return
+            return false
         }
+        return true
     }
 
     override func viewDidLoad() {
