@@ -17,25 +17,17 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func forgetPasswordBtn(_ sender: UIButton) {
-        guard let email = emailTextField.text, !email.isEmpty else {
-            Utilities.showAlert(
-                on: self, title: "Error", message: "Please enter an email.")
-            return
-        }
 
-        guard Validation.shared.isValidEmail(email) else {
-            Utilities.showAlert(
-                on: self, title: "Error",
-                message:
-                    "Invalid email format. Please enter a valid email address.")
-            return
-        }
+        if Validation.shared.checkValidation(
+            for: ["Email": emailTextField.text ?? ""], viewController: self)
+        {
 
-        Utilities.showAlert(
-            on: self, title: "Success",
-            message: "Forget Password Link Sent Successfully",
-            isSuccess: true
-        )
+            Utilities.showAlert(
+                on: self, title: "Success",
+                message: "Forget Password Link Sent Successfully",
+                isSuccess: true
+            )
+        }
 
     }
 
@@ -61,42 +53,40 @@ class LoginViewController: UIViewController {
             on: self, title: "Success", message: "Login Successfully",
             isSuccess: true
         ) {
-            Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
+            Navigation.shared.navigate(
+                from: self, withIdentifier: "HomeViewController")
         }
 
     }
 
-    func validateTextField() -> Bool{
+    func validateTextField() -> Bool {
 
         let data = [
-            "Email" : emailTextField.text ?? "",
-            "Password" : passwordTextField.text ?? ""
+            "Email": emailTextField.text ?? "",
+            "Password": passwordTextField.text ?? "",
         ]
-        if Validation.shared.checkValidation(for: data, viewController: self) {
+        if !Validation.shared.checkValidation(for: data, viewController: self) {
             return false
         }
-
-        guard Validation.shared.isValidEmail(emailTextField.text ?? "") else {
-            Utilities.showAlert(
-                on: self, title: "Error",
-                message:
-                    "Invalid email format. Please enter a valid email address.")
-            return false
-        }
-        guard Validation.shared.isValidPassword(passwordTextField.text ?? "")
-        else {
-            Utilities.showAlert(
-                on: self, title: "Error",
-                message:
-                    "Password must be at least 12 characters long, with 1 uppercase, 1 special character, and 1 number."
-            )
-            return false
-        }
+        
         return true
     }
-
+    var textFieldHandler: TextFieldNavigationHandler?
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTapGestureToDismissKeyboard()
+        textFieldHandler = TextFieldNavigationHandler(textFields: [emailTextField, passwordTextField])
+    }
+
+    func setupTapGestureToDismissKeyboard() {
+        let tapGesture = UITapGestureRecognizer(
+            target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
 }
