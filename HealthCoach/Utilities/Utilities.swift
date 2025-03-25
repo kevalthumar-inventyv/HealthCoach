@@ -53,8 +53,11 @@ class Utilities {
         let titleFont = [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)
         ]
+        
         let attributedTitle = NSAttributedString(
             string: "Select Date", attributes: titleFont)
+        
+        
         alert.setValue(attributedTitle, forKey: "attributedTitle")
 
         let datePicker = UIDatePicker()

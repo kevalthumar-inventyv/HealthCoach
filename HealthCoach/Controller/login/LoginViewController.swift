@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func backBtn(_ sender: UIButton) {
-        Navigation.shared.popToRootViewController(from: self)
+        Navigation.shared.popViewController(from: self)
     }
 
     @IBAction func nextBtn(_ sender: UIButton) {

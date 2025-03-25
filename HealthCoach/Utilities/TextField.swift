@@ -46,3 +46,28 @@ class UnderlinedTextField: UITextField {
         underlineLayer.backgroundColor = underlineColor.cgColor
     }
 }
+
+class TextFieldNavigationHandler: NSObject, UITextFieldDelegate {
+    private var textFields: [UITextField] = []
+
+    init(textFields: [UITextField]) {
+        super.init()
+        self.textFields = textFields
+        assignDelegates()
+    }
+
+    private func assignDelegates() {
+        for textField in textFields {
+            textField.delegate = self
+        }
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let currentIndex = textFields.firstIndex(of: textField), currentIndex < textFields.count - 1 {
+            textFields[currentIndex + 1].becomeFirstResponder() // Move to next field
+        } else {
+            textField.resignFirstResponder() // Close keyboard on last field
+        }
+        return true
+    }
+}

@@ -14,11 +14,27 @@ class EmailPasswordViewController: UIViewController {
     @IBOutlet weak var checkboxButton: UIButton!
 
     var isChecked = false
+    
+     var textFieldHandler: TextFieldNavigationHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCheckbox()
+        setupTapGestureToDismissKeyboard()
+
+        textFieldHandler = TextFieldNavigationHandler(textFields: [emailTextField, PasswordTextField, confirmPasswordTextField])
     }
+
+    func setupTapGestureToDismissKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
 
     @IBAction func backBtn(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)

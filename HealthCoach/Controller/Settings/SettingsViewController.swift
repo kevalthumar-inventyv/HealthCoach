@@ -156,7 +156,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             "Unit": "UnitViewController",
             "Date format": "DateFormateViewController",
             "Time format": "TimeFormateViewController",
-            "First day of week": "FirstDayOfTheWeekViewController"
+            "First day of week": "FirstDayOfTheWeekViewController",
+            "Logout": "LoginViewController",
+            "Register online": "RegisterOnlineViewController"
         ]
 
         if let identifier = viewControllerMap[selectedItem] {
@@ -164,6 +166,29 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             if selectedItem == "Add device" {
                 guard let AddDeviceVC = Navigation.shared.navigate(from: self, withIdentifier: "MyDevicesViewController") as? MyDevicesViewController else { return }
                 AddDeviceVC.fromWhereItCame = "SettingsViewController"
+            }
+           else if selectedItem == "Logout" {
+                Utilities.showAlert(on: self, title: "Logout", message: "Are you sure you want to logout?",isSuccess: true) {
+                    Navigation.shared.navigate(from: self, withIdentifier: "LoginViewController")
+                }
+            }
+            else if selectedItem == "Register online" {
+                let sheet = UIAlertController(title: "Register Online", message: nil, preferredStyle: .actionSheet)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let newUser = UIAlertAction(title: "New User", style: .default) { _ in
+                    Navigation.shared.navigate(from: self, withIdentifier: "EmailPasswordViewController")
+                }
+                let existingUser = UIAlertAction(title: "Existing User", style: .default) { _ in
+                    Navigation.shared.navigate(from: self, withIdentifier: "LoginViewController")
+                }
+                
+                sheet.addAction(newUser)
+                sheet.addAction(existingUser)
+                sheet.addAction(cancelAction)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    SideMenuManager.shared.closeSideMenu()
+                }
+                self.present(sheet, animated: true)
             }
             else{
                 Navigation.shared.navigate(from: self, withIdentifier: identifier)

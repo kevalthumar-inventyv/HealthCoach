@@ -16,11 +16,12 @@ class FirstNameLastNameViewController: UIViewController {
     }
     
     @IBAction func nextBtn(_ sender: UIButton) {
+        print(#function)
         let data = [
             "FirstName": firstNameTextField.text ?? "FName",
             "LastName": lastNameTextField.text ?? "LName"
         ]
-        if Validation.shared.checkValidation(for: data, viewController: self){
+        if !Validation.shared.checkValidation(for: data, viewController: self){
             return
         }
         sendData()
@@ -33,13 +34,25 @@ class FirstNameLastNameViewController: UIViewController {
             LastName:- \(lastNameTextField.text ?? "LName")
             """
         )
-        let birthHeightGenderVC = self.storyboard?.instantiateViewController(identifier: "BirthHeightGenderViewController") as! BirthHeightGenderViewController
-        self.navigationController?.pushViewController(birthHeightGenderVC, animated: true)
+        Navigation.shared.navigate(from: self, withIdentifier: "BirthHeightGenderViewController")
     }
+    
+    var textFieldHandler: TextFieldNavigationHandler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTapGestureToDismissKeyboard()
+        textFieldHandler = TextFieldNavigationHandler(textFields: [firstNameTextField, lastNameTextField])
+    }
+    
+    func setupTapGestureToDismissKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
 
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
 }

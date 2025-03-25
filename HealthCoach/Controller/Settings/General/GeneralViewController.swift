@@ -15,19 +15,31 @@ class GeneralViewController : UIViewController, UITextFieldDelegate{
     @IBOutlet weak var btnFemaleOut: UIButton!
     @IBOutlet weak var btnMaleOut: UIButton!
     @IBOutlet weak var textfieldFirstName: UnderlinedTextField!
+    @IBOutlet weak var textfieldLastName: UnderlinedTextField!
+    @IBOutlet weak var textfieldBirthDayOut: UnderlinedTextField!
+    @IBOutlet weak var textfieldHeightOut: UnderlinedTextField!
     
-@IBOutlet weak var textfieldLastName: UnderlinedTextField!
-    
-@IBOutlet weak var textfieldBirthDayOut: UnderlinedTextField!
-    
-@IBOutlet weak var textfieldHeightOut: UnderlinedTextField!
+    var navigationHandler: TextFieldNavigationHandler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textfieldBirthDayOut.delegate = self
         textfieldHeightOut.delegate = self
         updateRadioButtons()
+        setupTapGestureToDismissKeyboard()
+        navigationHandler = TextFieldNavigationHandler(textFields: [textfieldFirstName, textfieldLastName])
     }
+
+    func setupTapGestureToDismissKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     
     
     func updateRadioButtons() {

@@ -144,7 +144,7 @@ extension MoreViewController: UITableViewDelegate, UITableViewDataSource {
         ]
 
         let onlineLinks: [String: String] = [
-            "Rate the App": "https://apps.apple.com/gb/app/sanitas-healthcoach/id981507162",
+            "Rate the App": "https://apps.apple.com/gb/app/sanitas-healthcoach/id981507162?see-all=reviews",
             "FAQ": "http://sanitas-online.de/web/de/service/faq/faq.php",
             "Terms and Conditions": "https://connect.sanitas-online.de/ConLegalInformation.aspx?q=TermsOfUse&p=AN&cu=en-US",
             "Data protection": "https://connect.sanitas-online.de/ConLegalInformation.aspx?q=PrivacyPolicy&p=AN&cu=en-US",

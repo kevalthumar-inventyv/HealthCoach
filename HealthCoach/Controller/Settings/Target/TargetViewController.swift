@@ -12,13 +12,23 @@ class TargetViewController: UIViewController ,UITextFieldDelegate{
         super.viewDidLoad()
         textfieldSleepOut.delegate = self
         textfieldActivityOut.delegate = self
-        
+        setupTapGestureToDismissKeyboard()
     }
+    
+    func setupTapGestureToDismissKeyboard() {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            tapGesture.cancelsTouchesInView = false
+            view.addGestureRecognizer(tapGesture)
+        }
+
+        @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
 
     @IBOutlet weak var textfieldActivityOut: UnderlinedTextField!
 
     @IBAction func textfieldActivity(_ sender: UnderlinedTextField) {
-        Utilities.showTargetSleepPicker(on: self) { selectedValue in
+        Utilities.showActivityPicker(on: self) { selectedValue in
             self.textfieldActivityOut.text = selectedValue
         }
     }
