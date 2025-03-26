@@ -9,21 +9,55 @@ import UIKit
 
 class MedicationFormViewController: UIViewController {
 
+    @IBOutlet weak var textMedication: UITextField!
+
+    @IBOutlet weak var textStrength: UITextField!
+    @IBOutlet weak var textDose: UITextField!
+    @IBOutlet weak var textFrequency: UITextField!
+    @IBOutlet weak var textReasonForIntake: UITextField!
+    @IBOutlet weak var textComment: UITextField!
+    var isEditingForm: Bool = false
+    @IBAction func btnDeleteClick(_ sender: UIButton) {
+    }
+
+    @IBAction func btnSaveClick(_ sender: UIButton) {
+        let data = [
+            "Medication": textMedication.text ?? "",
+            "Strength": textStrength.text ?? "",
+            "Dose": textDose.text ?? "",
+            "Frequency": textFrequency.text ?? "",
+            "ReasonForIntake": textReasonForIntake.text ?? "",
+            "Comment": textComment.text ?? "",
+        ]
+        if !Validation.shared.checkValidation(for: data, viewController: self) {
+            return
+        }
+    }
+    @IBOutlet weak var btnSave: UIButton!
+    @IBOutlet weak var btnDelete: UIButton!
+
+    var textFieldHandler: TextFieldNavigationHandler?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        textFieldHandler = TextFieldNavigationHandler(textFields: [
+            textMedication,
+            textStrength, textDose, textFrequency, textReasonForIntake,
+            textComment,
+        ])
+        setupTapGestureToDismissKeyboard()
+        btnSave.setTitle(isEditingForm ? "Update" : "Save", for: .normal)
+        btnDelete.isHidden = !isEditingForm
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setupTapGestureToDismissKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
-    */
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 
 }

@@ -10,16 +10,17 @@ import UIKit
 class MedicationViewController: UIViewController {
 
     @IBAction func btnAddMedication(_ sender: UIButton) {
+        let formVC = Navigation.shared.navigate(
+            from: self, withIdentifier: "MedicationFormViewController") as! MedicationFormViewController
+        formVC.isEditing = true
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         SideMenuManager.shared.showSideMenu(in: self, sideMenuView: sideView)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -29,8 +30,6 @@ class MedicationViewController: UIViewController {
         // Ensure the menu is hidden off-screen
         sideView.frame.origin.x = -sideView.frame.width
     }
-
-
 
     @IBOutlet weak var sideView: UIView!
 
@@ -55,7 +54,8 @@ class MedicationViewController: UIViewController {
 
     @IBAction func btnHomeSide(_ sender: UIButton) {
         print("Home button tapped")
-        Navigation.shared.navigate(from: self, withIdentifier: "HomeViewController")
+        Navigation.shared.navigate(
+            from: self, withIdentifier: "HomeViewController")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             SideMenuManager.shared.closeSideMenu()
         }
@@ -63,7 +63,8 @@ class MedicationViewController: UIViewController {
 
     @IBAction func btnMoreSide(_ sender: UIButton) {
         print("More button tapped")
-        Navigation.shared.navigate(from: self, withIdentifier: "MoreViewController")
+        Navigation.shared.navigate(
+            from: self, withIdentifier: "MoreViewController")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             SideMenuManager.shared.closeSideMenu()
         }
@@ -71,12 +72,11 @@ class MedicationViewController: UIViewController {
 
     @IBAction func btnSettingsSide(_ sender: UIButton) {
         print("Settings button tapped")
-        Navigation.shared.navigate(from: self, withIdentifier: "SettingsViewController")
+        Navigation.shared.navigate(
+            from: self, withIdentifier: "SettingsViewController")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             SideMenuManager.shared.closeSideMenu()
         }
     }
-    
-
 
 }
