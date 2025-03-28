@@ -101,12 +101,6 @@ HealthCoach/
 
 ## HealthCoach Image
 
-### HealthCoach Logo
-
-![HealthCoach Logo](HealthCoach Image/HealthCoachLogo.png)
-
-## Screenshots
-
 ### App Tour
 
 ![App Tour 1](https://i.imgur.com/zaXzTlQ.png)  
